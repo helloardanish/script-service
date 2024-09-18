@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Script Runner</title>
+    <script>
+        function runScriptById() {
+            const scriptId = document.getElementById('scriptId').value;
+            fetch(`/scripts/run/${scriptId}`)
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function runScriptByPath() {
+            const path = document.getElementById('scriptPath').value;
+            fetch(`/scripts/run?path=${encodeURIComponent(path)}`)
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <h1>Script Runner</h1>
+
+    <label for="scriptId">Enter Script ID:</label>
+    <input type="text" id="scriptId" name="scriptId">
+    <button onclick="runScriptById()">Run Script by ID</button>
+    <br><br>
+
+    <label for="scriptPath">Enter Script Path:</label>
+    <input type="text" id="scriptPath" name="scriptPath">
+    <button onclick="runScriptByPath()">Run Script by Path</button>
+    
+</body>
+</html>
